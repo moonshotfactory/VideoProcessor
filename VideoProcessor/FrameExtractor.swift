@@ -6,4 +6,8 @@
 //  Copyright © 2018 Madhav Jha. All rights reserved.
 //
 
-import Foundation
+import AVFoundation
+
+class FrameExtractor {
+    
+}
