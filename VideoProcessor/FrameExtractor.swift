@@ -18,6 +18,22 @@ class FrameExtractor {
         checkPermission()
     }
     
+    private func defaultCamera() -> AVCaptureDevice? {
+        if let device = AVCaptureDevice.default(for: AVMediaType.video) {
+            return device
+        } else {
+            return nil
+        }
+    }
+    
+    private func configureSession() {
+        guard permissionGranted else { return }
+        guard let captureDevice = defaultCamera() else { return }
+        guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return }
+        guard captureSession.canAddInput(captureDeviceInput) else { return }
+        captureSession.addInput(captureDeviceInput)
+    }
+    
     func getPermissionGranted() -> Bool {
         return permissionGranted
     }
