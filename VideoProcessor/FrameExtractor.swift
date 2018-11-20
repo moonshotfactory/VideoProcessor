@@ -9,5 +9,7 @@
 import AVFoundation
 
 class FrameExtractor {
+    private let captureSession = AVCaptureSession()
+    private let sessionQueue = DispatchQueue(label: "session queue")
     
 }
