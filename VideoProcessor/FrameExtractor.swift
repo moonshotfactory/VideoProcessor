@@ -18,6 +18,10 @@ class FrameExtractor {
         checkPermission()
     }
     
+    func getPermissionGranted() -> Bool {
+        return permissionGranted
+    }
+    
     private func checkPermission() {
         switch AVCaptureDevice.authorizationStatus(for: AVMediaType.video) {
         case .authorized:

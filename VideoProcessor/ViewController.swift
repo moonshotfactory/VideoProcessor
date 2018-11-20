@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         frameExtractor = FrameExtractor()
+        let permissionGranted = frameExtractor.getPermissionGranted()
+        print(permissionGranted)
     }
 
 
