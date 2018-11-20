@@ -52,6 +52,9 @@ class FrameExtractor : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sample buffer"))
         guard captureSession.canAddOutput(videoOutput) else { return }
         captureSession.addOutput(videoOutput)
+        guard let connection = videoOutput.connection(with: AVMediaType.video) else { return }
+        guard connection.isVideoOrientationSupported else { return }
+        connection.videoOrientation = .portrait
     }
     
     func getPermissionGranted() -> Bool {
