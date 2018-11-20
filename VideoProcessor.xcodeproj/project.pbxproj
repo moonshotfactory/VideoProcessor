@@ -13,6 +13,7 @@
 		007872CD21A4993A00055EF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 007872CC21A4993A00055EF1 /* Assets.xcassets */; };
 		007872D021A4993A00055EF1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 007872CE21A4993A00055EF1 /* LaunchScreen.storyboard */; };
 		007872DB21A4993B00055EF1 /* VideoProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007872DA21A4993B00055EF1 /* VideoProcessorTests.swift */; };
+		007872E621A4995100055EF1 /* FrameExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007872E521A4995100055EF1 /* FrameExtractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		007872D621A4993B00055EF1 /* VideoProcessorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoProcessorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		007872DA21A4993B00055EF1 /* VideoProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProcessorTests.swift; sourceTree = "<group>"; };
 		007872DC21A4993B00055EF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		007872E521A4995100055EF1 /* FrameExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				007872CC21A4993A00055EF1 /* Assets.xcassets */,
 				007872CE21A4993A00055EF1 /* LaunchScreen.storyboard */,
 				007872D121A4993A00055EF1 /* Info.plist */,
+				007872E521A4995100055EF1 /* FrameExtractor.swift */,
 			);
 			path = VideoProcessor;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				007872E621A4995100055EF1 /* FrameExtractor.swift in Sources */,
 				007872C821A4993A00055EF1 /* ViewController.swift in Sources */,
 				007872C621A4993A00055EF1 /* AppDelegate.swift in Sources */,
 			);
