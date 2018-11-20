@@ -8,15 +8,22 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, FrameExtractorDelegate {
+    
+    @IBOutlet weak var imageView: UIImageView!
     
     var frameExtractor : FrameExtractor!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         frameExtractor = FrameExtractor()
+        frameExtractor.delegate = self
         let permissionGranted = frameExtractor.getPermissionGranted()
         print(permissionGranted)
+    }
+    
+    func captured(image: UIImage) {
+        imageView.image = image
     }
 
 

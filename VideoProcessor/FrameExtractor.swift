@@ -7,13 +7,24 @@
 //
 
 import AVFoundation
+import UIKit
+
+
+protocol FrameExtractorDelegate: class {
+    func captured(image: UIImage)
+}
 
 class FrameExtractor : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    weak var delegate: FrameExtractorDelegate?
+    
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "session queue")
     
     private var permissionGranted = false
     
+    private let context = CIContext()
+
     override init() {
         super.init()
         checkPermission()
@@ -48,7 +59,18 @@ class FrameExtractor : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        print("Got a frame!")
+//        print("Got a frame!")
+        DispatchQueue.main.async { [unowned self] in
+            guard let uiImage = self.imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
+            self.delegate?.captured(image: uiImage)
+        }
+    }
+    
+    private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage? {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return nil }
+        let ciImage = CIImage(cvPixelBuffer: imageBuffer)
+        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return nil }
+        return UIImage(cgImage: cgImage)
     }
     
     private func checkPermission() {
