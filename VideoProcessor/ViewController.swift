@@ -17,6 +17,9 @@ class ViewController: UIViewController {
         frameExtractor = FrameExtractor()
         let permissionGranted = frameExtractor.getPermissionGranted()
         print(permissionGranted)
+        let previewLayer = frameExtractor.getPreviewLayer()
+        view.layer.addSublayer(previewLayer)
+        previewLayer.frame = view.frame
     }
 
 

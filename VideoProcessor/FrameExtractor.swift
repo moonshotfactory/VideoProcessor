@@ -31,6 +31,11 @@ class FrameExtractor : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
         }
     }
     
+    func getPreviewLayer() -> AVCaptureVideoPreviewLayer {
+        let previewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+        return previewLayer
+    }
+    
     private func configureSession() {
         guard permissionGranted else { return }
         guard let captureDevice = defaultCamera() else { return }
