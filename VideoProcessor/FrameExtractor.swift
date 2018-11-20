@@ -8,14 +8,19 @@
 
 import AVFoundation
 
-class FrameExtractor {
+class FrameExtractor : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "session queue")
     
     private var permissionGranted = false
     
-    init() {
+    override init() {
+        super.init()
         checkPermission()
+        sessionQueue.async { [unowned self] in
+            self.configureSession()
+            self.captureSession.startRunning()
+        }
     }
     
     private func defaultCamera() -> AVCaptureDevice? {
@@ -32,10 +37,18 @@ class FrameExtractor {
         guard let captureDeviceInput = try? AVCaptureDeviceInput(device: captureDevice) else { return }
         guard captureSession.canAddInput(captureDeviceInput) else { return }
         captureSession.addInput(captureDeviceInput)
+        let videoOutput = AVCaptureVideoDataOutput()
+        videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "sample buffer"))
+        guard captureSession.canAddOutput(videoOutput) else { return }
+        captureSession.addOutput(videoOutput)
     }
     
     func getPermissionGranted() -> Bool {
         return permissionGranted
+    }
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        print("Got a frame!")
     }
     
     private func checkPermission() {
