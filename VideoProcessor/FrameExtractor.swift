@@ -12,4 +12,31 @@ class FrameExtractor {
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "session queue")
     
+    private var permissionGranted = false
+    
+    init() {
+        checkPermission()
+    }
+    
+    private func checkPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: AVMediaType.video) {
+        case .authorized:
+            permissionGranted = true
+        case .notDetermined:
+            requestPermission()
+        default:
+            permissionGranted = false
+        }
+        
+    }
+    
+    private func requestPermission() {
+        sessionQueue.suspend()
+        AVCaptureDevice.requestAccess(for: AVMediaType.video) { [unowned self](granted) in
+            self.permissionGranted = granted
+            self.sessionQueue.resume()
+        }
+        
+    }
+    
 }
